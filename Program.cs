@@ -86,6 +86,9 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+// Serves files added at runtime (wwwroot/uploads); MapStaticAssets only knows publish-time files.
+app.UseStaticFiles();
+
 app.UseRouting();
 
 app.UseAuthentication();

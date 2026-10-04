@@ -117,7 +117,7 @@ public static class DbInitializer
         ("Badhan", "Sanaag", "Somalia", 10.7090, 48.3370),
         ("Dhahar", "Haylaan", "Somalia", 9.9400, 48.8680),
         ("Burtinle", "Nugaal", "Somalia", 7.7980, 47.9940),
-
+        ("Harfo", "Mudug", "Somalia", 7.3500, 47.6220),
     };
 
     private static async Task<List<City>> SeedCitiesAsync(ApplicationDbContext context)
@@ -149,8 +149,8 @@ public static class DbInitializer
             return;
         }
 
-        Category Cat(string name) => categories.First(c => c.Name == name);
-        City Loc(string name) => cities.First(c => c.Name == name);
+        Category? Cat(string name) => categories.FirstOrDefault(c => c.Name == name);
+        City? Loc(string name) => cities.FirstOrDefault(c => c.Name == name);
 
         var today = DateTime.UtcNow.Date;
 
@@ -163,8 +163,8 @@ public static class DbInitializer
                 Category = Cat("Conferences"),
                 Date = today.AddDays(14),
                 Time = new TimeSpan(9, 0, 0),
-                Venue = "Mogadishu Convention Center",
-                City = Loc("Mogadishu"),
+                Venue = "Garowe Convention Center",
+                City = Loc("Garowe"),
                 OrganizerId = organizer.Id,
                 ContactEmail = "info@somalitechsummit.example",
                 RegistrationRequired = true,
@@ -303,6 +303,10 @@ public static class DbInitializer
                 IsApproved = true
             },
         };
+
+        // A sample event whose category or city is not in the database is skipped rather than
+        // failing startup (the tables may hold a different set than the defaults above).
+        sampleEvents.RemoveAll(e => e.Category is null || e.City is null);
 
         context.Events.AddRange(sampleEvents);
         await context.SaveChangesAsync();
