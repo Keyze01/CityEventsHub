@@ -480,3 +480,9 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+
+# Production settings contain the hosted database password
+appsettings.Production.json
+
+# Database export contains user emails and password hashes
+database-full.sql
