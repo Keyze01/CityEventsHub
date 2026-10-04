@@ -1,0 +1,35 @@
+@page "{id:int}"
+@model CityEventsHub.Pages.Admin.Categories.EditModel
+@{
+    ViewData["Title"] = "Edit Category";
+}
+
+<h1 class="mb-4"><i class="fa-solid fa-pen me-2"></i>Edit Category</h1>
+
+<div class="card border-0 shadow-sm rounded-4">
+    <div class="card-body p-4">
+        <form method="post">
+            <input type="hidden" asp-for="Input.Id" />
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3" role="alert"></div>
+            <div class="mb-3">
+                <label asp-for="Input.Name" class="form-label"></label>
+                <input asp-for="Input.Name" class="form-control" />
+                <span asp-validation-for="Input.Name" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Input.Description" class="form-label"></label>
+                <input asp-for="Input.Description" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label asp-for="Input.IconClass" class="form-label"></label>
+                <input asp-for="Input.IconClass" class="form-control" />
+            </div>
+            <button type="submit" class="btn btn-primary rounded-pill">Save</button>
+            <a asp-page="/Admin/Categories/Index" class="btn btn-outline-secondary rounded-pill">Cancel</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

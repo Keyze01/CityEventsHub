@@ -1,0 +1,41 @@
+@model CityEventsHub.ViewModels.EventCardViewModel
+
+<div class="card h-100 border-0 shadow-sm rounded-4 event-card">
+    <img src="@(string.IsNullOrEmpty(Model.ImagePath) ? "/images/event-placeholder.svg" : Model.ImagePath)"
+         class="card-img-top rounded-top-4" alt="@Model.Title" style="height:180px;object-fit:cover;" />
+    <div class="card-body d-flex flex-column">
+        <span class="badge bg-primary-subtle text-primary-emphasis mb-2 align-self-start rounded-pill">@Model.CategoryName</span>
+        <h5 class="card-title mb-1">@Model.Title</h5>
+        <p class="text-muted small mb-2">
+            <i class="fa-solid fa-calendar-days me-1"></i>@Model.Date.ToString("MMM dd, yyyy")
+            <i class="fa-solid fa-clock ms-2 me-1"></i>@Model.Time.ToString(@"hh\:mm")
+        </p>
+        <p class="text-muted small mb-2">
+            <i class="fa-solid fa-location-dot me-1"></i>@Model.Venue, @Model.CityName
+        </p>
+        @if (Model.ReviewCount > 0)
+        {
+            <p class="small mb-2">
+                <i class="fa-solid fa-star text-warning"></i>
+                @Model.AverageRating!.Value.ToString("0.0") (@Model.ReviewCount review@(Model.ReviewCount == 1 ? "" : "s"))
+            </p>
+        }
+        @if (Model.IsCancelled)
+        {
+            <span class="badge bg-danger mb-2 align-self-start">Cancelled</span>
+        }
+        else if (Model.RegistrationRequired)
+        {
+            <p class="small text-muted mb-2">
+                <i class="fa-solid fa-users me-1"></i>@Model.AttendeeCount registered@(Model.MaxAttendees.HasValue ? $" / {Model.MaxAttendees}" : "")
+                @if (Model.IsFull)
+                {
+                    <span class="badge bg-secondary ms-1">Full</span>
+                }
+            </p>
+        }
+        <a asp-page="/Events/Details" asp-route-id="@Model.Id" class="btn btn-primary rounded-pill mt-auto">
+            View Details
+        </a>
+    </div>
+</div>

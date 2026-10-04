@@ -1,0 +1,72 @@
+@page
+@model CityEventsHub.Pages.Account.IndexModel
+@{
+    ViewData["Title"] = "My Dashboard";
+}
+
+<h1 class="mb-4"><i class="fa-solid fa-user me-2"></i>My Dashboard</h1>
+
+<div class="row g-4 mb-4">
+    <div class="col-md-3 col-6">
+        <div class="card border-0 shadow-sm rounded-4 text-center h-100">
+            <div class="card-body">
+                <i class="fa-solid fa-heart fa-2x text-danger mb-2"></i>
+                <h3 class="mb-0">@Model.FavoriteCount</h3>
+                <p class="text-muted small mb-0">Favorites</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-6">
+        <div class="card border-0 shadow-sm rounded-4 text-center h-100">
+            <div class="card-body">
+                <i class="fa-solid fa-calendar-check fa-2x text-primary mb-2"></i>
+                <h3 class="mb-0">@Model.UpcomingRsvpCount</h3>
+                <p class="text-muted small mb-0">Upcoming RSVPs</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-6">
+        <div class="card border-0 shadow-sm rounded-4 text-center h-100">
+            <div class="card-body">
+                <i class="fa-solid fa-bell fa-2x text-warning mb-2"></i>
+                <h3 class="mb-0">@Model.UnreadNotificationCount</h3>
+                <p class="text-muted small mb-0">Unread Notifications</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-6">
+        <div class="card border-0 shadow-sm rounded-4 text-center h-100">
+            <div class="card-body">
+                <i class="fa-solid fa-star fa-2x text-success mb-2"></i>
+                <h3 class="mb-0">@Model.ReviewCount</h3>
+                <p class="text-muted small mb-0">Reviews Written</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card border-0 shadow-sm rounded-4">
+    <div class="card-body">
+        <h5 class="card-title">Account</h5>
+        <p class="mb-1"><strong>Name:</strong> @Model.CurrentUser.FullName</p>
+        <p class="mb-3"><strong>Email:</strong> @Model.CurrentUser.Email</p>
+        <a asp-page="/Account/EditProfile" class="btn btn-outline-primary rounded-pill me-2">
+            <i class="fa-solid fa-pen me-1"></i>Edit Profile
+        </a>
+        <a asp-area="Identity" asp-page="/Account/Manage/ChangePassword" class="btn btn-outline-secondary rounded-pill me-2">
+            <i class="fa-solid fa-key me-1"></i>Change Password
+        </a>
+        <a asp-page="/Favorites/Index" class="btn btn-outline-danger rounded-pill me-2">
+            <i class="fa-solid fa-heart me-1"></i>My Favorites
+        </a>
+        <a asp-page="/Account/MyRsvps" class="btn btn-outline-success rounded-pill me-2">
+            <i class="fa-solid fa-calendar-check me-1"></i>My RSVPs
+        </a>
+        <a asp-page="/Notifications/Index" class="btn btn-outline-warning rounded-pill me-2">
+            <i class="fa-solid fa-bell me-1"></i>Notifications
+        </a>
+        <a asp-page="/Account/MyReviews" class="btn btn-outline-info rounded-pill">
+            <i class="fa-solid fa-star me-1"></i>My Reviews
+        </a>
+    </div>
+</div>

@@ -1,0 +1,97 @@
+@page
+@model CityEventsHub.Pages.Events.IndexModel
+@{
+    ViewData["Title"] = "Browse Events";
+}
+
+<h1 class="mb-4"><i class="fa-solid fa-magnifying-glass me-2"></i>Browse Events</h1>
+
+<div class="card border-0 shadow-sm rounded-4 mb-4">
+    <div class="card-body">
+        <form method="get" class="row g-3">
+            <div class="col-md-3">
+                <label class="form-label small">Keyword</label>
+                <input type="text" asp-for="Keyword" class="form-control" placeholder="Event name or description">
+            </div>
+            <div class="col-md-2">
+                <label class="form-label small">Category</label>
+                <select asp-for="CategoryId" class="form-select">
+                    <option value="">All Categories</option>
+                    @foreach (var category in Model.Categories)
+                    {
+                        <option value="@category.Id">@category.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label small">City</label>
+                <select asp-for="CityId" class="form-select">
+                    <option value="">All Cities</option>
+                    @foreach (var city in Model.Cities)
+                    {
+                        <option value="@city.Id">@city.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label small">From Date</label>
+                <input type="date" asp-for="FromDate" class="form-control">
+            </div>
+            <div class="col-md-2">
+                <label class="form-label small">To Date</label>
+                <input type="date" asp-for="ToDate" class="form-control">
+            </div>
+            <div class="col-md-1 d-grid">
+                <label class="form-label small d-none d-md-block">&nbsp;</label>
+                <button type="submit" class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label small">Organizer</label>
+                <input type="text" asp-for="OrganizerName" class="form-control" placeholder="Organizer name">
+            </div>
+        </form>
+    </div>
+</div>
+
+<p class="text-muted">@Model.Results.TotalCount event(s) found</p>
+
+@if (Model.Results.Items.Any())
+{
+    <div class="row g-4 mb-4">
+        @foreach (var ev in Model.Results.Items)
+        {
+            <div class="col-md-4">
+                <partial name="_EventCard" model="ev" />
+            </div>
+        }
+    </div>
+
+    @if (Model.Results.TotalPages > 1)
+    {
+        <nav aria-label="Event pages">
+            <ul class="pagination justify-content-center">
+                @for (var p = 1; p <= Model.Results.TotalPages; p++)
+                {
+                    <li class="page-item @(p == Model.Results.Page ? "active" : "")">
+                        <a class="page-link"
+                           asp-page="/Events/Index"
+                           asp-route-Keyword="@Model.Keyword"
+                           asp-route-CategoryId="@Model.CategoryId"
+                           asp-route-CityId="@Model.CityId"
+                           asp-route-FromDate="@Model.FromDate?.ToString("yyyy-MM-dd")"
+                           asp-route-ToDate="@Model.ToDate?.ToString("yyyy-MM-dd")"
+                           asp-route-OrganizerName="@Model.OrganizerName"
+                           asp-route-PageNumber="@p">@p</a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    }
+}
+else
+{
+    <div class="text-center py-5">
+        <i class="fa-solid fa-calendar-xmark fa-3x text-muted mb-3"></i>
+        <p class="text-muted">No events match your search. Try adjusting your filters.</p>
+    </div>
+}

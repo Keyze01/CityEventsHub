@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Discover Events Near You" xml:space="preserve">
+    <value>اكتشف الفعاليات القريبة منك</value>
+  </data>
+  <data name="Next-Gen Events" xml:space="preserve">
+    <value>فعاليات الجيل القادم</value>
+  </data>
+  <data name="Events That" xml:space="preserve">
+    <value>فعاليات</value>
+  </data>
+  <data name="Bring Your City to Life" xml:space="preserve">
+    <value>تُحيي مدينتك</value>
+  </data>
+  <data name="Conferences, festivals, concerts, job fairs, and community events — all in one place." xml:space="preserve">
+    <value>مؤتمرات ومهرجانات وحفلات موسيقية وملتقيات توظيف وفعاليات مجتمعية — كلها في مكان واحد.</value>
+  </data>
+  <data name="Search events..." xml:space="preserve">
+    <value>ابحث عن الفعاليات...</value>
+  </data>
+  <data name="All Categories" xml:space="preserve">
+    <value>جميع الفئات</value>
+  </data>
+  <data name="All Cities" xml:space="preserve">
+    <value>جميع المدن</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>بحث</value>
+  </data>
+  <data name="Popular Categories" xml:space="preserve">
+    <value>الفئات الشائعة</value>
+  </data>
+  <data name="Featured Events" xml:space="preserve">
+    <value>فعاليات مميزة</value>
+  </data>
+  <data name="Upcoming Events" xml:space="preserve">
+    <value>الفعاليات القادمة</value>
+  </data>
+  <data name="Browse All Events" xml:space="preserve">
+    <value>تصفح جميع الفعاليات</value>
+  </data>
+  <data name="No upcoming events yet. Check back soon!" xml:space="preserve">
+    <value>لا توجد فعاليات قادمة بعد. تحقق مرة أخرى قريبًا!</value>
+  </data>
+  <data name="Browse by City" xml:space="preserve">
+    <value>تصفح حسب المدينة</value>
+  </data>
+  <data name="Explore on the Map" xml:space="preserve">
+    <value>استكشف على الخريطة</value>
+  </data>
+  <data name="Interactive map integration placeholder — plug in a provider such as Leaflet or Google Maps using each event's Latitude/Longitude to show events geographically." xml:space="preserve">
+    <value>عنصر نائب لخريطة تفاعلية — قم بدمج مزود مثل Leaflet أو خرائط Google لعرض الفعاليات جغرافيًا.</value>
+  </data>
+</root>

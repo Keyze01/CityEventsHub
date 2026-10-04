@@ -1,0 +1,64 @@
+@page
+@model CityEventsHub.Pages.Admin.Users.IndexModel
+@{
+    ViewData["Title"] = "Manage Users";
+}
+
+<h1 class="mb-4"><i class="fa-solid fa-users me-2"></i>Manage Users</h1>
+
+<div class="table-responsive">
+    <table class="table align-middle bg-white rounded-4 shadow-sm">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Roles</th>
+                <th>Status</th>
+                <th class="text-end">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model.Users)
+            {
+                <tr>
+                    <td>@user.FullName</td>
+                    <td>@user.Email</td>
+                    <td>
+                        @foreach (var role in user.Roles)
+                        {
+                            <span class="badge bg-primary-subtle text-primary-emphasis me-1">@role</span>
+                        }
+                    </td>
+                    <td>
+                        @if (user.IsLockedOut)
+                        {
+                            <span class="badge bg-danger">Locked</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-success">Active</span>
+                        }
+                    </td>
+                    <td class="text-end">
+                        <form method="post" asp-page-handler="ToggleRole" asp-route-userId="@user.Id" asp-route-role="Organizer" class="d-inline">
+                            <button type="submit" class="btn btn-sm btn-outline-info" title="Toggle Organizer role">
+                                <i class="fa-solid fa-briefcase"></i>
+                            </button>
+                        </form>
+                        <form method="post" asp-page-handler="ToggleRole" asp-route-userId="@user.Id" asp-route-role="Administrator" class="d-inline">
+                            <button type="submit" class="btn btn-sm btn-outline-primary" title="Toggle Administrator role">
+                                <i class="fa-solid fa-user-shield"></i>
+                            </button>
+                        </form>
+                        <form method="post" asp-page-handler="ToggleLock" asp-route-userId="@user.Id" class="d-inline"
+                              onsubmit="return confirm('@(user.IsLockedOut ? "Unlock" : "Lock")  this user?');">
+                            <button type="submit" class="btn btn-sm btn-outline-danger" title="Toggle lock">
+                                <i class="fa-solid @(user.IsLockedOut ? "fa-lock-open" : "fa-lock")"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

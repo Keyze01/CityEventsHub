@@ -1,0 +1,24 @@
+@page
+@model CityEventsHub.Pages.Categories.IndexModel
+@{
+    ViewData["Title"] = "Categories";
+}
+
+<h1 class="mb-4"><i class="fa-solid fa-tags me-2"></i>Categories</h1>
+
+<div class="row g-3">
+    @foreach (var (category, count) in Model.Categories)
+    {
+        <div class="col-6 col-md-4 col-lg-3">
+            <a asp-page="/Events/Index" asp-route-CategoryId="@category.Id" class="text-decoration-none">
+                <div class="card border-0 shadow-sm rounded-4 text-center h-100 category-tile">
+                    <div class="card-body">
+                        <i class="@category.IconClass fa-2x text-primary mb-2"></i>
+                        <p class="mb-1 fw-semibold text-dark">@category.Name</p>
+                        <p class="mb-0 small text-muted">@count event@(count == 1 ? "" : "s")</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    }
+</div>

@@ -1,0 +1,48 @@
+@page
+@model CityEventsHub.Pages.Notifications.IndexModel
+@{
+    ViewData["Title"] = "Notifications";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="mb-0"><i class="fa-solid fa-bell me-2"></i>Notifications</h1>
+    @if (Model.Notifications.Any(n => !n.IsRead))
+    {
+        <form method="post" asp-page-handler="MarkAllRead">
+            <button type="submit" class="btn btn-outline-secondary rounded-pill">Mark All as Read</button>
+        </form>
+    }
+</div>
+
+@if (Model.Notifications.Any())
+{
+    <div class="list-group">
+        @foreach (var notification in Model.Notifications)
+        {
+            <div class="list-group-item d-flex justify-content-between align-items-center @(notification.IsRead ? "" : "bg-primary-subtle")">
+                <div>
+                    <span class="badge bg-secondary me-2">@notification.Type</span>
+                    @if (notification.RelatedEventId.HasValue)
+                    {
+                        <a asp-page="/Events/Details" asp-route-id="@notification.RelatedEventId">@notification.Message</a>
+                    }
+                    else
+                    {
+                        <span>@notification.Message</span>
+                    }
+                    <div class="text-muted small">@notification.CreatedAt.ToString("MMM dd, yyyy HH:mm")</div>
+                </div>
+                @if (!notification.IsRead)
+                {
+                    <form method="post" asp-page-handler="MarkRead" asp-route-id="@notification.Id">
+                        <button type="submit" class="btn btn-sm btn-outline-primary">Mark as Read</button>
+                    </form>
+                }
+            </div>
+        }
+    </div>
+}
+else
+{
+    <p class="text-muted">You have no notifications.</p>
+}

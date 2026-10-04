@@ -1,0 +1,9 @@
+@using System.Globalization
+<form asp-page="/SetLanguage" method="get" class="d-flex">
+    <select name="culture" class="form-select form-select-sm" onchange="this.form.submit()" aria-label="Select language">
+        <option value="en" selected="@(CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "en")">English</option>
+        <option value="so" selected="@(CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "so")">Soomaali</option>
+        <option value="ar" selected="@(CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "ar")">العربية</option>
+    </select>
+    <input type="hidden" name="returnUrl" value="@Context.Request.Path@Context.Request.QueryString" />
+</form>

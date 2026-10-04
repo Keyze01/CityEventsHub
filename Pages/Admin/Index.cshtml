@@ -1,0 +1,131 @@
+@page
+@model CityEventsHub.Pages.Admin.IndexModel
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<h1 class="mb-4"><i class="fa-solid fa-gauge me-2"></i>Admin Dashboard</h1>
+
+<div class="row g-4 mb-4">
+    <div class="col-md-3 col-6">
+        <div class="card border-0 shadow-sm rounded-4 text-center h-100">
+            <div class="card-body">
+                <i class="fa-solid fa-users fa-2x text-primary mb-2"></i>
+                <h3 class="mb-0">@Model.TotalUsers</h3>
+                <p class="text-muted small mb-0">Total Users</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-6">
+        <div class="card border-0 shadow-sm rounded-4 text-center h-100">
+            <div class="card-body">
+                <i class="fa-solid fa-briefcase fa-2x text-info mb-2"></i>
+                <h3 class="mb-0">@Model.TotalOrganizers</h3>
+                <p class="text-muted small mb-0">Total Organizers</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-6">
+        <div class="card border-0 shadow-sm rounded-4 text-center h-100">
+            <div class="card-body">
+                <i class="fa-solid fa-hourglass-half fa-2x text-warning mb-2"></i>
+                <h3 class="mb-0">@Model.PendingEvents</h3>
+                <p class="text-muted small mb-0">Pending Events</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-6">
+        <div class="card border-0 shadow-sm rounded-4 text-center h-100">
+            <div class="card-body">
+                <i class="fa-solid fa-circle-check fa-2x text-success mb-2"></i>
+                <h3 class="mb-0">@Model.ApprovedEvents</h3>
+                <p class="text-muted small mb-0">Approved Events</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-6">
+        <div class="card border-0 shadow-sm rounded-4 text-center h-100">
+            <div class="card-body">
+                <i class="fa-solid fa-circle-xmark fa-2x text-danger mb-2"></i>
+                <h3 class="mb-0">@Model.RejectedEvents</h3>
+                <p class="text-muted small mb-0">Rejected Events</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-6">
+        <div class="card border-0 shadow-sm rounded-4 text-center h-100">
+            <div class="card-body">
+                <i class="fa-solid fa-tags fa-2x text-primary mb-2"></i>
+                <h3 class="mb-0">@Model.TotalCategories</h3>
+                <p class="text-muted small mb-0">Categories</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-6">
+        <div class="card border-0 shadow-sm rounded-4 text-center h-100">
+            <div class="card-body">
+                <i class="fa-solid fa-city fa-2x text-primary mb-2"></i>
+                <h3 class="mb-0">@Model.TotalCities</h3>
+                <p class="text-muted small mb-0">Cities</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card border-0 shadow-sm rounded-4 mb-4">
+    <div class="card-body">
+        <h5 class="card-title">Quick Actions</h5>
+        <a asp-page="/Admin/Events/Index" class="btn btn-outline-primary rounded-pill me-2 mb-2">
+            <i class="fa-solid fa-calendar-check me-1"></i>Manage Events
+        </a>
+        <a asp-page="/Admin/Users/Index" class="btn btn-outline-secondary rounded-pill me-2 mb-2">
+            <i class="fa-solid fa-users me-1"></i>Manage Users
+        </a>
+        <a asp-page="/Admin/Categories/Index" class="btn btn-outline-secondary rounded-pill me-2 mb-2">
+            <i class="fa-solid fa-tags me-1"></i>Manage Categories
+        </a>
+        <a asp-page="/Admin/Cities/Index" class="btn btn-outline-secondary rounded-pill mb-2">
+            <i class="fa-solid fa-city me-1"></i>Manage Cities
+        </a>
+    </div>
+</div>
+
+<div class="card border-0 shadow-sm rounded-4">
+    <div class="card-body">
+        <h5 class="card-title">Recent Activity</h5>
+        @if (Model.RecentActivity.Any())
+        {
+            <ul class="list-group list-group-flush">
+                @foreach (var ev in Model.RecentActivity)
+                {
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>
+                            <strong>@ev.Title</strong> by @ev.Organizer?.FullName
+                            @if (ev.IsCancelled)
+                            {
+                                <span class="badge bg-danger ms-2">Cancelled</span>
+                            }
+                            else if (ev.IsRejected)
+                            {
+                                <span class="badge bg-danger ms-2">Rejected</span>
+                            }
+                            else if (ev.IsApproved)
+                            {
+                                <span class="badge bg-success ms-2">Approved</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-warning text-dark ms-2">Pending</span>
+                            }
+                        </span>
+                        <span class="text-muted small">@(ev.UpdatedAt ?? ev.CreatedAt).ToString("MMM dd, yyyy HH:mm")</span>
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p class="text-muted mb-0">No activity yet.</p>
+        }
+    </div>
+</div>

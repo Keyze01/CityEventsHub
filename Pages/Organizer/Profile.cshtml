@@ -1,0 +1,43 @@
+@page
+@model CityEventsHub.Pages.Organizer.ProfileModel
+@{
+    ViewData["Title"] = "Organizer Profile";
+}
+
+<h1 class="mb-4"><i class="fa-solid fa-id-card me-2"></i>Organizer Profile</h1>
+
+<div class="row justify-content-center">
+    <div class="col-md-7">
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-body p-4">
+                @if (!string.IsNullOrEmpty(Model.StatusMessage))
+                {
+                    <div class="alert alert-success">@Model.StatusMessage</div>
+                }
+                <form method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3" role="alert"></div>
+                    <div class="mb-3">
+                        <label asp-for="Input.OrganizationName" class="form-label"></label>
+                        <input asp-for="Input.OrganizationName" class="form-control" />
+                        <span asp-validation-for="Input.OrganizationName" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Input.Bio" class="form-label"></label>
+                        <textarea asp-for="Input.Bio" class="form-control" rows="4"></textarea>
+                        <span asp-validation-for="Input.Bio" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="Input.ContactPhone" class="form-label"></label>
+                        <input asp-for="Input.ContactPhone" class="form-control" />
+                        <span asp-validation-for="Input.ContactPhone" class="text-danger"></span>
+                    </div>
+                    <button type="submit" class="btn btn-primary rounded-pill">Save Profile</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

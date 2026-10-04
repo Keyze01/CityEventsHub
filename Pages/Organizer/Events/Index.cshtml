@@ -1,0 +1,93 @@
+@page
+@model CityEventsHub.Pages.Organizer.Events.IndexModel
+@{
+    ViewData["Title"] = "My Events";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="mb-0"><i class="fa-solid fa-list me-2"></i>My Events</h1>
+    <a asp-page="/Organizer/Events/Create" class="btn btn-primary rounded-pill">
+        <i class="fa-solid fa-plus me-1"></i>Create Event
+    </a>
+</div>
+
+@if (Model.MyEvents.Any())
+{
+    <div class="table-responsive">
+        <table class="table align-middle bg-white rounded-4 shadow-sm">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Category</th>
+                    <th>Date</th>
+                    <th>City</th>
+                    <th>Status</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var ev in Model.MyEvents)
+                {
+                    <tr>
+                        <td>@ev.Title</td>
+                        <td>@ev.Category?.Name</td>
+                        <td>@ev.Date.ToString("MMM dd, yyyy")</td>
+                        <td>@ev.City?.Name</td>
+                        <td>
+                            @if (ev.IsCancelled)
+                            {
+                                <span class="badge bg-danger">Cancelled</span>
+                            }
+                            else if (ev.IsRejected)
+                            {
+                                <span class="badge bg-danger">Rejected</span>
+                            }
+                            else if (ev.IsApproved)
+                            {
+                                <span class="badge bg-success">Approved</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-warning text-dark">Pending</span>
+                            }
+                        </td>
+                        <td class="text-end">
+                            <a asp-page="/Events/Details" asp-route-id="@ev.Id" class="btn btn-sm btn-outline-secondary" title="View">
+                                <i class="fa-solid fa-eye"></i>
+                            </a>
+                            <a asp-page="/Organizer/Events/Edit" asp-route-id="@ev.Id" class="btn btn-sm btn-outline-primary" title="Edit">
+                                <i class="fa-solid fa-pen"></i>
+                            </a>
+                            <a asp-page="/Organizer/Events/Attendees" asp-route-id="@ev.Id" class="btn btn-sm btn-outline-info" title="Attendees">
+                                <i class="fa-solid fa-users"></i>
+                            </a>
+                            @if (!ev.IsCancelled)
+                            {
+                                <form method="post" asp-page-handler="Cancel" asp-route-id="@ev.Id" class="d-inline"
+                                      onsubmit="return confirm('Cancel this event?');">
+                                    <button type="submit" class="btn btn-sm btn-outline-warning" title="Cancel">
+                                        <i class="fa-solid fa-ban"></i>
+                                    </button>
+                                </form>
+                            }
+                            <form method="post" asp-page-handler="Delete" asp-route-id="@ev.Id" class="d-inline"
+                                  onsubmit="return confirm('Permanently delete this event? This cannot be undone.');">
+                                <button type="submit" class="btn btn-sm btn-outline-danger" title="Delete">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <div class="text-center py-5">
+        <i class="fa-solid fa-calendar-plus fa-3x text-muted mb-3"></i>
+        <p class="text-muted">You haven't created any events yet.</p>
+        <a asp-page="/Organizer/Events/Create" class="btn btn-primary rounded-pill">Create Your First Event</a>
+    </div>
+}

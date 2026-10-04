@@ -1,0 +1,53 @@
+@page
+@model CityEventsHub.Pages.Account.MyReviewsModel
+@{
+    ViewData["Title"] = "My Reviews";
+}
+
+<h1 class="mb-4"><i class="fa-solid fa-star me-2"></i>My Reviews</h1>
+
+@if (Model.Reviews.Any())
+{
+    <div class="table-responsive">
+        <table class="table align-middle bg-white rounded-4 shadow-sm">
+            <thead>
+                <tr>
+                    <th>Event</th>
+                    <th>Rating</th>
+                    <th>Comment</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var review in Model.Reviews)
+                {
+                    <tr>
+                        <td><a asp-page="/Events/Details" asp-route-id="@review.EventId">@review.Event?.Title</a></td>
+                        <td class="text-warning">
+                            @for (var i = 0; i < review.Rating; i++)
+                            {
+                                <i class="fa-solid fa-star"></i>
+                            }
+                        </td>
+                        <td>@review.Comment</td>
+                        <td class="text-end">
+                            <a asp-page="/Account/EditReview" asp-route-id="@review.Id" class="btn btn-sm btn-outline-primary">
+                                <i class="fa-solid fa-pen"></i>
+                            </a>
+                            <form method="post" asp-page-handler="Delete" asp-route-reviewId="@review.Id" class="d-inline"
+                                  onsubmit="return confirm('Delete this review?');">
+                                <button type="submit" class="btn btn-sm btn-outline-danger">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <p class="text-muted">You haven't written any reviews yet.</p>
+}

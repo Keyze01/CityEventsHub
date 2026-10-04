@@ -1,0 +1,60 @@
+@page
+@model CityEventsHub.Pages.Account.MyRsvpsModel
+@{
+    ViewData["Title"] = "My RSVPs";
+}
+
+<h1 class="mb-4"><i class="fa-solid fa-calendar-check me-2"></i>My RSVPs</h1>
+
+@if (Model.Rsvps.Any())
+{
+    <div class="table-responsive">
+        <table class="table align-middle bg-white rounded-4 shadow-sm">
+            <thead>
+                <tr>
+                    <th>Event</th>
+                    <th>Date</th>
+                    <th>City</th>
+                    <th>Status</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var rsvp in Model.Rsvps)
+                {
+                    <tr>
+                        <td><a asp-page="/Events/Details" asp-route-id="@rsvp.EventId">@rsvp.Event?.Title</a></td>
+                        <td>@rsvp.Event?.Date.ToString("MMM dd, yyyy")</td>
+                        <td>@rsvp.Event?.City?.Name</td>
+                        <td>
+                            @if (rsvp.Status == CityEventsHub.Models.RsvpStatus.Registered)
+                            {
+                                <span class="badge bg-success">Registered</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary">Cancelled</span>
+                            }
+                        </td>
+                        <td class="text-end">
+                            @if (rsvp.Status == CityEventsHub.Models.RsvpStatus.Registered)
+                            {
+                                <form method="post" asp-page-handler="Cancel" asp-route-eventId="@rsvp.EventId">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">Cancel</button>
+                                </form>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <div class="text-center py-5">
+        <i class="fa-solid fa-calendar-xmark fa-3x text-muted mb-3"></i>
+        <p class="text-muted">You haven't registered for any events yet.</p>
+        <a asp-page="/Events/Index" class="btn btn-primary rounded-pill">Browse Events</a>
+    </div>
+}

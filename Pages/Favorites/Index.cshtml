@@ -1,0 +1,32 @@
+@page
+@model CityEventsHub.Pages.Favorites.IndexModel
+@{
+    ViewData["Title"] = "My Favorites";
+}
+
+<h1 class="mb-4"><i class="fa-solid fa-heart me-2"></i>My Favorites</h1>
+
+@if (Model.Favorites.Any())
+{
+    <div class="row g-4">
+        @foreach (var ev in Model.Favorites)
+        {
+            <div class="col-md-4">
+                <partial name="_EventCard" model="ev" />
+                <form method="post" asp-page-handler="Remove" asp-route-id="@ev.Id" class="mt-2">
+                    <button type="submit" class="btn btn-sm btn-outline-danger w-100 rounded-pill">
+                        <i class="fa-solid fa-heart-crack me-1"></i>Remove Favorite
+                    </button>
+                </form>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="text-center py-5">
+        <i class="fa-solid fa-heart-crack fa-3x text-muted mb-3"></i>
+        <p class="text-muted">You haven't favorited any events yet.</p>
+        <a asp-page="/Events/Index" class="btn btn-primary rounded-pill">Browse Events</a>
+    </div>
+}

@@ -1,0 +1,79 @@
+@page
+@model CityEventsHub.Pages.Organizer.IndexModel
+@{
+    ViewData["Title"] = "Organizer Dashboard";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="mb-0"><i class="fa-solid fa-gauge me-2"></i>Organizer Dashboard</h1>
+    <a asp-page="/Organizer/Events/Create" class="btn btn-primary rounded-pill">
+        <i class="fa-solid fa-plus me-1"></i>Create Event
+    </a>
+</div>
+
+<div class="row g-4 mb-4">
+    <div class="col-md-3 col-6">
+        <div class="card border-0 shadow-sm rounded-4 text-center h-100">
+            <div class="card-body">
+                <i class="fa-solid fa-calendar fa-2x text-primary mb-2"></i>
+                <h3 class="mb-0">@Model.TotalEvents</h3>
+                <p class="text-muted small mb-0">Total Events</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-6">
+        <div class="card border-0 shadow-sm rounded-4 text-center h-100">
+            <div class="card-body">
+                <i class="fa-solid fa-calendar-check fa-2x text-success mb-2"></i>
+                <h3 class="mb-0">@Model.UpcomingEvents</h3>
+                <p class="text-muted small mb-0">Upcoming Events</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-6">
+        <div class="card border-0 shadow-sm rounded-4 text-center h-100">
+            <div class="card-body">
+                <i class="fa-solid fa-hourglass-half fa-2x text-warning mb-2"></i>
+                <h3 class="mb-0">@Model.PendingApproval</h3>
+                <p class="text-muted small mb-0">Pending Approval</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-6">
+        <div class="card border-0 shadow-sm rounded-4 text-center h-100">
+            <div class="card-body">
+                <i class="fa-solid fa-ban fa-2x text-danger mb-2"></i>
+                <h3 class="mb-0">@Model.CancelledEvents</h3>
+                <p class="text-muted small mb-0">Cancelled Events</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm rounded-4 text-center h-100">
+            <div class="card-body">
+                <i class="fa-solid fa-users fa-2x text-primary mb-2"></i>
+                <h3 class="mb-0">@Model.RegisteredAttendees</h3>
+                <p class="text-muted small mb-0">Total Registered Attendees</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="card border-0 shadow-sm rounded-4 h-100">
+            <div class="card-body">
+                <h5 class="card-title">Quick Actions</h5>
+                <a asp-page="/Organizer/Events/Index" class="btn btn-outline-primary rounded-pill me-2 mb-2">
+                    <i class="fa-solid fa-list me-1"></i>Manage My Events
+                </a>
+                <a asp-page="/Organizer/Events/Create" class="btn btn-outline-success rounded-pill me-2 mb-2">
+                    <i class="fa-solid fa-plus me-1"></i>Create New Event
+                </a>
+                <a asp-page="/Organizer/Profile" class="btn btn-outline-secondary rounded-pill mb-2">
+                    <i class="fa-solid fa-id-card me-1"></i>Organizer Profile
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

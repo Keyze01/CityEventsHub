@@ -1,0 +1,113 @@
+@page
+@model CityEventsHub.Pages.Admin.Events.IndexModel
+@{
+    ViewData["Title"] = "Manage Events";
+}
+
+<h1 class="mb-4"><i class="fa-solid fa-calendar-check me-2"></i>Manage Events</h1>
+
+<ul class="nav nav-pills mb-4">
+    @foreach (var status in Enum.GetValues<CityEventsHub.Pages.Admin.Events.EventStatusFilter>())
+    {
+        <li class="nav-item">
+            <a class="nav-link @(Model.Status == status ? "active" : "")" asp-page="/Admin/Events/Index" asp-route-Status="@status">@status</a>
+        </li>
+    }
+</ul>
+
+@if (Model.Events.Any())
+{
+    <div class="table-responsive">
+        <table class="table align-middle bg-white rounded-4 shadow-sm">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Organizer</th>
+                    <th>Category</th>
+                    <th>Date</th>
+                    <th>City</th>
+                    <th>Status</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var ev in Model.Events)
+                {
+                    <tr>
+                        <td><a asp-page="/Events/Details" asp-route-id="@ev.Id">@ev.Title</a></td>
+                        <td>@ev.Organizer?.FullName</td>
+                        <td>@ev.Category?.Name</td>
+                        <td>@ev.Date.ToString("MMM dd, yyyy")</td>
+                        <td>@ev.City?.Name</td>
+                        <td>
+                            @if (ev.IsCancelled)
+                            {
+                                <span class="badge bg-danger">Cancelled</span>
+                            }
+                            else if (ev.IsRejected)
+                            {
+                                <span class="badge bg-danger">Rejected</span>
+                            }
+                            else if (ev.IsApproved)
+                            {
+                                <span class="badge bg-success">Approved</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-warning text-dark">Pending</span>
+                            }
+                        </td>
+                        <td class="text-end">
+                            @if (!ev.IsApproved || ev.IsRejected)
+                            {
+                                <form method="post" asp-page-handler="Approve" asp-route-id="@ev.Id" class="d-inline">
+                                    <button type="submit" class="btn btn-sm btn-outline-success" title="Approve">
+                                        <i class="fa-solid fa-check"></i>
+                                    </button>
+                                </form>
+                            }
+                            @if (!ev.IsRejected)
+                            {
+                                <button type="button" class="btn btn-sm btn-outline-danger" title="Reject"
+                                        data-bs-toggle="modal" data-bs-target="#rejectModal@(ev.Id)">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </button>
+
+                                <div class="modal fade" id="rejectModal@(ev.Id)" tabindex="-1">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <form method="post" asp-page-handler="Reject" asp-route-id="@ev.Id">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Reject "@ev.Title"</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <label class="form-label">Reason for rejection</label>
+                                                    <textarea name="RejectReason" class="form-control" rows="3" required></textarea>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                    <button type="submit" class="btn btn-danger">Reject Event</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            <form method="post" asp-page-handler="Delete" asp-route-id="@ev.Id" class="d-inline"
+                                  onsubmit="return confirm('Permanently delete this event? This cannot be undone.');">
+                                <button type="submit" class="btn btn-sm btn-outline-secondary" title="Delete">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <p class="text-muted">No events match this filter.</p>
+}

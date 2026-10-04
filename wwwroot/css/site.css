@@ -1,0 +1,281 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem var(--brand-purple);
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+  color: var(--bs-secondary-color);
+  text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+  text-align: start;
+}
+
+/* ==========================================================================
+   City Events Hub brand system — violet + lime on near-black, tech-forward
+   ========================================================================== */
+
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-weight: 500 700;
+  font-display: swap;
+  src: url("/lib/fonts/SpaceGrotesk-Variable.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("/lib/fonts/Inter-Variable.woff2") format("woff2");
+}
+
+:root {
+  --brand-purple: #7c3aed;
+  --brand-purple-rgb: 124, 58, 237;
+  --brand-purple-dark: #5b21b6;
+  --brand-purple-darker: #2e1065;
+  --brand-lilac: #ede9fe;
+  --brand-lilac-strong: #ddd6fe;
+  --brand-lime: #d7f24c;
+  --brand-lime-dark: #b9d631;
+  --brand-navy: #0c0c14;
+  --brand-navy-alt: #131320;
+  --brand-navy-elevated: #1a1a29;
+  --brand-navy-border: #2a2a3d;
+  --brand-ink: #f4f3ff;
+  --brand-ink-muted: #a7a3c4;
+}
+
+body {
+  font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6,
+.navbar-brand, .btn, .display-5, .fw-bold {
+  font-family: "Space Grotesk", var(--bs-font-sans-serif);
+}
+
+h1, h2, h3, .display-5 {
+  letter-spacing: -0.02em;
+}
+
+a {
+  color: var(--brand-purple);
+}
+a:hover {
+  color: var(--brand-purple-dark);
+}
+
+/* ---- Buttons ---- */
+.btn {
+  font-weight: 600;
+}
+
+.btn-primary {
+  background-color: var(--brand-purple);
+  border-color: var(--brand-purple);
+  color: #fff;
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+  background-color: var(--brand-purple-dark) !important;
+  border-color: var(--brand-purple-dark) !important;
+  color: #fff !important;
+}
+
+.btn-outline-primary {
+  color: var(--brand-purple);
+  border-color: var(--brand-purple);
+}
+.btn-outline-primary:hover {
+  background-color: var(--brand-purple);
+  border-color: var(--brand-purple);
+  color: #fff;
+}
+
+/* Lime accent button — used for the primary hero/marketing calls-to-action */
+.btn-accent {
+  background-color: var(--brand-lime);
+  border-color: var(--brand-lime);
+  color: #14141f;
+}
+.btn-accent:hover, .btn-accent:focus, .btn-accent:active {
+  background-color: var(--brand-lime-dark) !important;
+  border-color: var(--brand-lime-dark) !important;
+  color: #14141f !important;
+}
+
+/* ---- Brand color utility overrides ---- */
+.text-primary { color: var(--brand-purple) !important; }
+.bg-primary { background-color: var(--brand-purple) !important; }
+.border-primary { border-color: var(--brand-purple) !important; }
+.bg-primary-subtle { background-color: var(--brand-lilac) !important; }
+.text-primary-emphasis { color: var(--brand-purple-dark) !important; }
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  background-color: var(--brand-purple) !important;
+  border-color: var(--brand-purple) !important;
+}
+
+.form-check-input:checked {
+  background-color: var(--brand-purple);
+  border-color: var(--brand-purple);
+}
+
+.page-link {
+  color: var(--brand-purple);
+}
+.page-item.active .page-link {
+  background-color: var(--brand-purple);
+  border-color: var(--brand-purple);
+}
+
+/* ---- Badge / pill label used for small icon + uppercase text chips ---- */
+.brand-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background-color: var(--brand-lilac);
+  color: var(--brand-purple-dark);
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.4rem 0.9rem;
+  border-radius: 50rem;
+}
+
+/* ---- Hero ---- */
+.hero-section {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, #f5f3ff 0%, #ffffff 70%);
+  color: #16161f;
+  isolation: isolate;
+}
+
+.hero-section::before,
+.hero-section::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  z-index: -1;
+}
+
+.hero-section::before {
+  width: 22rem;
+  height: 22rem;
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.35), transparent 70%);
+  top: -6rem;
+  right: -4rem;
+}
+
+.hero-section::after {
+  width: 16rem;
+  height: 16rem;
+  background: radial-gradient(circle, rgba(215, 242, 76, 0.35), transparent 70%);
+  bottom: -4rem;
+  left: -3rem;
+}
+
+.hero-highlight {
+  color: var(--brand-purple);
+}
+
+/* ---- Cards / tiles ---- */
+.event-card {
+  transition: transform 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.event-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0.75rem 1.5rem rgba(var(--brand-purple-rgb), 0.18) !important;
+}
+
+.category-tile {
+  transition: transform 0.15s ease-in-out;
+}
+
+.category-tile:hover {
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   Dark mode — near-black navy with the same violet/lime accents
+   ========================================================================== */
+[data-bs-theme="dark"] body {
+  background-color: var(--brand-navy);
+}
+
+[data-bs-theme="dark"] .navbar.bg-white,
+[data-bs-theme="dark"] .bg-white {
+  background-color: var(--brand-navy-alt) !important;
+}
+
+[data-bs-theme="dark"] .navbar .nav-link,
+[data-bs-theme="dark"] .navbar-brand {
+  color: var(--brand-ink);
+}
+
+[data-bs-theme="dark"] .card {
+  background-color: var(--brand-navy-elevated);
+  color: var(--brand-ink);
+  border-color: var(--brand-navy-border);
+}
+
+[data-bs-theme="dark"] .bg-light {
+  background-color: var(--brand-navy-elevated) !important;
+}
+
+[data-bs-theme="dark"] .text-dark {
+  color: var(--brand-ink) !important;
+}
+
+[data-bs-theme="dark"] .text-muted {
+  color: var(--brand-ink-muted) !important;
+}
+
+[data-bs-theme="dark"] .table {
+  --bs-table-bg: var(--brand-navy-elevated);
+  --bs-table-color: var(--brand-ink);
+}
+
+[data-bs-theme="dark"] .bg-primary-subtle {
+  background-color: rgba(var(--brand-purple-rgb), 0.18) !important;
+}
+
+[data-bs-theme="dark"] .text-primary-emphasis {
+  color: var(--brand-lilac-strong) !important;
+}
+
+[data-bs-theme="dark"] .brand-chip {
+  background-color: rgba(var(--brand-purple-rgb), 0.18);
+  color: var(--brand-lilac-strong);
+}
+
+[data-bs-theme="dark"] .hero-section {
+  background: linear-gradient(160deg, var(--brand-navy-alt) 0%, var(--brand-navy) 60%);
+  color: var(--brand-ink);
+}
+
+[data-bs-theme="dark"] .footer {
+  background-color: var(--brand-navy-alt) !important;
+}

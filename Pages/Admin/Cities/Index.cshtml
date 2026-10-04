@@ -1,0 +1,73 @@
+@page
+@model CityEventsHub.Pages.Admin.Cities.IndexModel
+@{
+    ViewData["Title"] = "Manage Cities";
+}
+
+<h1 class="mb-4"><i class="fa-solid fa-city me-2"></i>Manage Cities</h1>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="alert alert-danger">@Model.ErrorMessage</div>
+}
+
+<div class="card border-0 shadow-sm rounded-4 mb-4">
+    <div class="card-body">
+        <h5 class="card-title">Add City</h5>
+        <form method="post" asp-page-handler="Create" class="row g-3">
+            <div class="col-md-3">
+                <input asp-for="Input.Name" class="form-control" placeholder="City name" />
+                <span asp-validation-for="Input.Name" class="text-danger"></span>
+            </div>
+            <div class="col-md-2">
+                <input asp-for="Input.Region" class="form-control" placeholder="Region" />
+            </div>
+            <div class="col-md-3">
+                <input asp-for="Input.Country" class="form-control" placeholder="Country" />
+                <span asp-validation-for="Input.Country" class="text-danger"></span>
+            </div>
+            <div class="col-md-2">
+                <input asp-for="Input.Latitude" class="form-control" placeholder="Latitude" />
+            </div>
+            <div class="col-md-2">
+                <input asp-for="Input.Longitude" class="form-control" placeholder="Longitude" />
+            </div>
+            <div class="col-12 d-grid">
+                <button type="submit" class="btn btn-primary">Add City</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table align-middle bg-white rounded-4 shadow-sm">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Region</th>
+                <th>Country</th>
+                <th>Coordinates</th>
+                <th class="text-end">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var city in Model.Cities)
+            {
+                <tr>
+                    <td>@city.Name</td>
+                    <td>@city.Region</td>
+                    <td>@city.Country</td>
+                    <td>@city.Latitude, @city.Longitude</td>
+                    <td class="text-end">
+                        <form method="post" asp-page-handler="Delete" asp-route-id="@city.Id" class="d-inline"
+                              onsubmit="return confirm('Delete this city?');">
+                            <button type="submit" class="btn btn-sm btn-outline-danger">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

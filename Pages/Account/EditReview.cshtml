@@ -1,0 +1,38 @@
+@page "{id:int}"
+@model CityEventsHub.Pages.Account.EditReviewModel
+@{
+    ViewData["Title"] = "Edit Review";
+}
+
+<h1 class="mb-4"><i class="fa-solid fa-star me-2"></i>Edit Review</h1>
+<p class="text-muted">@Model.EventTitle</p>
+
+<div class="card border-0 shadow-sm rounded-4">
+    <div class="card-body p-4">
+        <form method="post">
+            <input type="hidden" asp-for="Input.ReviewId" />
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3" role="alert"></div>
+            <div class="mb-3">
+                <label asp-for="Input.Rating" class="form-label">Rating</label>
+                <select asp-for="Input.Rating" class="form-select" style="max-width:200px;">
+                    <option value="5">5 - Excellent</option>
+                    <option value="4">4 - Good</option>
+                    <option value="3">3 - Average</option>
+                    <option value="2">2 - Poor</option>
+                    <option value="1">1 - Terrible</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Input.Comment" class="form-label"></label>
+                <textarea asp-for="Input.Comment" class="form-control" rows="4"></textarea>
+                <span asp-validation-for="Input.Comment" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary rounded-pill">Save Changes</button>
+            <a asp-page="/Account/MyReviews" class="btn btn-outline-secondary rounded-pill">Cancel</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

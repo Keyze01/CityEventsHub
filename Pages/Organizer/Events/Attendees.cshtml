@@ -1,0 +1,41 @@
+@page "{id:int}"
+@model CityEventsHub.Pages.Organizer.Events.AttendeesModel
+@{
+    ViewData["Title"] = "Attendees";
+}
+
+<h1 class="mb-1"><i class="fa-solid fa-users me-2"></i>Attendees</h1>
+<p class="text-muted mb-4">@Model.Event.Title — @Model.Attendees.Count registered</p>
+
+@if (Model.Attendees.Any())
+{
+    <div class="table-responsive">
+        <table class="table align-middle bg-white rounded-4 shadow-sm">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Registered At</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var rsvp in Model.Attendees)
+                {
+                    <tr>
+                        <td>@rsvp.User?.FullName</td>
+                        <td>@rsvp.User?.Email</td>
+                        <td>@rsvp.RegisteredAt.ToString("MMM dd, yyyy HH:mm")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <p class="text-muted">No one has registered for this event yet.</p>
+}
+
+<a asp-page="/Organizer/Events/Index" class="btn btn-outline-secondary rounded-pill mt-3">
+    <i class="fa-solid fa-arrow-left me-1"></i>Back to My Events
+</a>

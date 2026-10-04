@@ -1,0 +1,107 @@
+@using System.Globalization
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+<!DOCTYPE html>
+<html lang="@CultureInfo.CurrentUICulture.TwoLetterISOLanguageName" dir="@(CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "ar" ? "rtl" : "ltr")">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - City Events Hub</title>
+    <script>
+        (function () {
+            var saved = localStorage.getItem('theme');
+            var theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-bs-theme', theme);
+        })();
+    </script>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/fontawesome/css/all.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/CityEventsHub.styles.css" asp-append-version="true" />
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <header class="flex-shrink-0">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm mb-3 sticky-top">
+            <div class="container">
+                <a class="navbar-brand fw-bold text-primary" asp-area="" asp-page="/Index">
+                    <i class="fa-solid fa-calendar-days me-1"></i>City Events Hub
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-lg-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-page="/Index">@Localizer["Home"]</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-page="/Events/Index">@Localizer["Browse Events"]</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-page="/Categories/Index">@Localizer["Categories"]</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-page="/Cities/Index">@Localizer["Cities"]</a>
+                        </li>
+                    </ul>
+                    <button type="button" id="darkModeToggle" class="btn btn-outline-secondary btn-sm rounded-pill me-3" title="Toggle dark mode" aria-label="Toggle dark mode">
+                        <i class="fa-solid fa-moon"></i>
+                    </button>
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container flex-grow-1">
+        <main role="main" class="pb-5">
+            @if (TempData["StatusMessage"] is string statusMessage && !string.IsNullOrEmpty(statusMessage))
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    @statusMessage
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+            @if (TempData["ErrorMessage"] is string errorMessage && !string.IsNullOrEmpty(errorMessage))
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    @errorMessage
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer bg-dark text-light py-4 mt-5 flex-shrink-0">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <h5><i class="fa-solid fa-calendar-days me-1"></i>City Events Hub</h5>
+                    <p class="text-secondary small">@Localizer["Discover conferences, festivals, concerts, and community events happening near you."]</p>
+                </div>
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <h6>@Localizer["Quick Links"]</h6>
+                    <ul class="list-unstyled small">
+                        <li><a class="link-light text-decoration-none" asp-area="" asp-page="/Events/Index">@Localizer["Browse Events"]</a></li>
+                        <li><a class="link-light text-decoration-none" asp-area="" asp-page="/Categories/Index">@Localizer["Categories"]</a></li>
+                        <li><a class="link-light text-decoration-none" asp-area="" asp-page="/Privacy">@Localizer["Privacy"]</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h6>@Localizer["Language"]</h6>
+                    <partial name="_CultureSwitcher" />
+                </div>
+            </div>
+            <hr class="border-secondary" />
+            <div class="text-center small text-secondary">@Localizer["© 2026 - City Events Hub. All rights reserved."]</div>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

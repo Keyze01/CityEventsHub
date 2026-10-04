@@ -1,0 +1,67 @@
+@page
+@model CityEventsHub.Pages.Admin.Categories.IndexModel
+@{
+    ViewData["Title"] = "Manage Categories";
+}
+
+<h1 class="mb-4"><i class="fa-solid fa-tags me-2"></i>Manage Categories</h1>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="alert alert-danger">@Model.ErrorMessage</div>
+}
+
+<div class="card border-0 shadow-sm rounded-4 mb-4">
+    <div class="card-body">
+        <h5 class="card-title">Add Category</h5>
+        <form method="post" asp-page-handler="Create" class="row g-3">
+            <div class="col-md-3">
+                <input asp-for="Input.Name" class="form-control" placeholder="Name" />
+                <span asp-validation-for="Input.Name" class="text-danger"></span>
+            </div>
+            <div class="col-md-4">
+                <input asp-for="Input.Description" class="form-control" placeholder="Description" />
+            </div>
+            <div class="col-md-3">
+                <input asp-for="Input.IconClass" class="form-control" placeholder="Font Awesome class" />
+            </div>
+            <div class="col-md-2 d-grid">
+                <button type="submit" class="btn btn-primary">Add</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table align-middle bg-white rounded-4 shadow-sm">
+        <thead>
+            <tr>
+                <th>Icon</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th class="text-end">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var category in Model.Categories)
+            {
+                <tr>
+                    <td><i class="@category.IconClass text-primary"></i></td>
+                    <td>@category.Name</td>
+                    <td>@category.Description</td>
+                    <td class="text-end">
+                        <a asp-page="/Admin/Categories/Edit" asp-route-id="@category.Id" class="btn btn-sm btn-outline-primary">
+                            <i class="fa-solid fa-pen"></i>
+                        </a>
+                        <form method="post" asp-page-handler="Delete" asp-route-id="@category.Id" class="d-inline"
+                              onsubmit="return confirm('Delete this category?');">
+                            <button type="submit" class="btn btn-sm btn-outline-danger">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
